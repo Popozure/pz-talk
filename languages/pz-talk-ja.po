@@ -164,7 +164,7 @@ msgstr "※ 通常は使用しません。"
 
 #: ../lib/pz-talk-settings.php:376
 msgid "etc"
-msgstr "その他"
+msgstr "作者について"
 
 #: ../lib/pz-talk-settings.php:379
 msgid "Author's site"
@@ -1073,3 +1073,24 @@ msgstr "[Pz] トーク設定"
 
 #~ msgid "(External site)"
 #~ msgstr "（外部リンク）"
+
+msgid "Talk/Settings"
+msgstr "トーク/設定"
+
+msgid "Admin Bar"
+msgstr "管理者バー"
+
+msgid "Display a menu in the admin bar."
+msgstr "管理者バーにメニューを表示します。"
+
+msgid "Restore default settings"
+msgstr "設定を初期状態へ戻す"
+
+msgid "Restore all settings to their defaults?"
+msgstr "すべての設定を初期状態へ戻しますか？"
+
+msgid "Settings restored to defaults."
+msgstr "設定を初期状態へ戻しました。"
+
+msgid "You do not have permission to reset these settings."
+msgstr "設定を初期化する権限がありません。"

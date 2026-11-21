@@ -108,3 +108,13 @@ jQuery(function($) {
 
     $(window).on("resize.pzTalk", centerModal);
 });
+
+jQuery(function() {
+    var saveButton = document.getElementById('pz-talk-save-top');
+    if (!saveButton) return;
+    document.addEventListener('keydown', function(event) {
+        if (!event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.isComposing || event.key.toLowerCase() !== 's') return;
+        event.preventDefault();
+        if (!event.repeat && !saveButton.disabled) saveButton.click();
+    });
+});

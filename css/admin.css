@@ -248,3 +248,23 @@ table.pz-talk-floating-row.widefat {
 #pz-talk-persons tr.pz-talk-drop-target > td:last-child {
   box-shadow: inset -2px 0 #2271b1, inset 0 2px #2271b1, inset 0 -2px #2271b1;
 }
+.pz-talk-settings-heading {
+	border-left: 4px solid #00bfff;
+	border-bottom: 1px solid #888888;
+	padding: 10px 0 10px 10px;
+}
+.wrap h1.pz-talk-settings-title {
+	font-weight: 800 !important;
+	border-left: 8px solid #00bfff !important;
+	border-bottom: 2px solid #000000;
+	padding-left: 12px !important;
+	padding-right: 150px !important;
+}
+.pz-talk-settings-save-anchor { position: sticky; top: 40px; height: 0; z-index: 1000; }
+.pz-talk-settings-save { position: absolute; top: 0; right: 0; text-align: center; }
+.pz-talk-settings-shortcut { display: table; margin: 2px auto 0; padding: 2px 3px; border-radius: 4px; background-color: #808080; font-size: 11px; line-height: 1.4; color: #eeeeee; }
+@media screen and (max-width: 782px) { .pz-talk-settings-save-anchor { top: 54px; } }
+@media screen and (max-width: 600px) { .pz-talk-settings-save-anchor { top: 8px; } }
+
+/* Match the initial save-button offset to the paragraph after the Pz-Comments anchor. */
+.pz-talk-settings-save-anchor + .pz-talk-settings-heading { margin-top: 13px; }

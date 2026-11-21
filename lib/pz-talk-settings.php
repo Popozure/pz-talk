@@ -329,9 +329,12 @@
 	});
 </script>
 <div class="wrap">
-	<div id="icon-options-general" class="icon32"></div>
-	<h2><?php _e('Talk Settings', $this->text_domain); ?></h2>
-	<div id="settings" style="clear:both;">
+	<h1 class="pz-talk-settings-title"><?php _e('Talk Settings', $this->text_domain); ?></h1>
+	<hr class="wp-header-end">
+	<div id="settings">
+<?php if (isset($_GET['pz-talk-reset']) && $_GET['pz-talk-reset'] === '1') { ?>
+		<div class="notice notice-success is-dismissible"><p><?php esc_html_e('Settings restored to defaults.', $this->text_domain); ?></p></div>
+<?php } ?>
 <?php
 		if ( isset($_POST['properties'])) {
 			check_admin_referer('pz_options');
@@ -419,8 +422,9 @@
 		?>
 		<form action="" method="post">
 			<?php wp_nonce_field('pz_options'); ?>
+			<div class="pz-talk-settings-save-anchor"><div class="pz-talk-settings-save"><?php submit_button(__('Save Changes'), 'primary', 'pz-talk-save-top', false); ?><small class="pz-talk-settings-shortcut">ALT+S</small></div></div>
 
-			<h3><?php _e('How to', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('How to', $this->text_domain); ?></h2>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><?php _e("Plugin page", $this->text_domain); ?></th>
@@ -428,7 +432,7 @@
 				</tr>
 			</table>
 
-			<h3><?php _e('Persons', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('Persons', $this->text_domain); ?></h2>
 			<table id="pz-talk-persons" class="form-table widefat striped">
 				<colgroup>
 					<col class="pz-talk-order-column" />
@@ -471,7 +475,7 @@
 			</table>
 			<?php submit_button(); ?>
 
-			<h3><?php _e('Editor', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('Editor', $this->text_domain); ?></h2>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><?php _e('Add insert button', $this->text_domain); ?></th>
@@ -480,7 +484,7 @@
 			</table>
 			<?php submit_button(); ?>
 
-			<h3><?php _e('Shortcode', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('Shortcode', $this->text_domain); ?></h2>
 			<table class="form-table pz-talk-shortcode-table">
 				<tr valign="top">
 					<th scope="row"><?php _e('Talk', $this->text_domain); ?></th>
@@ -495,7 +499,7 @@
 			</table>
 			<?php submit_button(); ?>
 
-			<h3><?php _e('Right justify', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('Right justify', $this->text_domain); ?></h2>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><?php _e('Talk', $this->text_domain); ?></th>
@@ -508,20 +512,20 @@
 			</table>
 			<?php submit_button(); ?>
 
-			<h3><?php _e('Debug', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('Debug', $this->text_domain); ?></h2>
 			<table class="form-table">
+				<tr>
+					<th scope="row"><?php esc_html_e('Admin Bar', $this->text_domain); ?></th>
+					<td><label><input type="hidden" name="properties[flg-adminbar]" value="" /><input type="checkbox" name="properties[flg-adminbar]" value="1" <?php checked($this->options['flg-adminbar'], '1'); ?> /><?php esc_html_e('Display a menu in the admin bar.', $this->text_domain); ?></label></td>
+				</tr>
 				<tr valign="top">
 					<th scope="row"><?php _e('Debug mode', $this->text_domain); ?></th>
 					<td><label><input name="properties[flg-debug]" type="checkbox" id="check" value="1" <?php checked(isset($this->options['flg-debug']) ? $this->options['flg-debug'] : null, 1); ?> /><?php _e('The information required for investigation is output to the source.', $this->text_domain); ?></label></td>
 				</tr>
-				<tr valign="top">
-					<th scope="row"><?php _e('Return to the initial setting', $this->text_domain); ?></th>
-					<td><label><input name="properties[initialize]" type="checkbox" id="check" value="1" <?php checked(isset($this->options['initialize']) ? $this->options['initialize'] : null, 1); ?> /><?php _e('* Usually not used.', $this->text_domain); ?></label></td>
-				</tr>
 			</table>
 			<?php submit_button(); ?>
 
-			<h3><?php _e('etc', $this->text_domain); ?></h3>
+			<h2 class="pz-talk-settings-heading"><?php _e('etc', $this->text_domain); ?></h2>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><?php _e("Author's site", $this->text_domain); ?></th>
@@ -537,6 +541,16 @@
 				</tr>
 			</table>
 		</form>
+		<form id="pz-talk-reset-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:flex;justify-content:flex-end;margin-top:24px">
+			<input type="hidden" name="action" value="pz_talk_reset_settings">
+			<?php wp_nonce_field('pz-talk-reset-settings'); ?>
+			<?php submit_button(__('Restore default settings', $this->text_domain), 'secondary', 'pz-talk-reset', false); ?>
+		</form>
+		<script>
+		document.getElementById('pz-talk-reset-form').addEventListener('submit', function(event) {
+			if (!window.confirm(<?php echo wp_json_encode(__('Restore all settings to their defaults?', $this->text_domain)); ?>)) event.preventDefault();
+		});
+		</script>
 	</div>
 </div>
 <?php

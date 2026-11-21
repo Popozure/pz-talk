@@ -23,6 +23,7 @@ class Pz_Talk {
 			'message-me-right'	=>	'1',
 			'talk-me-right'		=>	null,
 			'flg-edit-insert'	=>	'1',
+			'flg-adminbar'		=>	'1',
 			'flg-debug'			=>	null,
 			'plugin-name'		=>	'Pz-Talk',
 			'plugin-version'	=>	'1.1.2'
@@ -58,9 +59,11 @@ class Pz_Talk {
 			add_action('wp_footer', array($this, 'footer'));								// デバッグ情報
 		}
 		
+		add_action('wp_before_admin_bar_render', array($this, 'admin_bar_menu'), 12);
 		// 管理画面のとき
 		if (is_admin()) {
 			add_action('wp_ajax_pz_talk_image_id', array($this, 'image_id'));
+			add_action('admin_post_pz_talk_reset_settings', array($this, 'reset_settings'));
 			add_action('admin_menu', array($this, 'add_menu') );											// 設定メニュー
 			add_action('admin_print_scripts', array($this, 'admin_scripts') );								// スクリプト
 			add_action('admin_print_footer_scripts', array($this, 'admin_footer') );						// テキストエディタ用クイックタグ
@@ -68,6 +71,34 @@ class Pz_Talk {
 			add_filter('mce_external_plugins', array($this, 'add_mce_plugin') );							// ビジュアルエディタ用ボタン
 			add_filter('plugin_action_links_'.$this->plugin_basename, array($this, 'action_links') );		// プラグイン画面
 		}
+	}
+
+	public function reset_settings() {
+		if (!current_user_can('manage_options')) {
+			wp_die(esc_html__('You do not have permission to reset these settings.', $this->text_domain), '', array('response' => 403));
+		}
+		check_admin_referer('pz-talk-reset-settings');
+		$this->options = $this->normalize_options($this->defaults);
+		update_option('pz_talk_options', $this->options);
+		wp_safe_redirect(admin_url('options-general.php?page=pz-talk-settings&pz-talk-reset=1'));
+		exit;
+	}
+
+	public function admin_bar_menu() {
+		if (!current_user_can('manage_options') || empty($this->options['flg-adminbar'])) {
+			return;
+		}
+		global $wp_admin_bar;
+		if (!$wp_admin_bar->get_node('pz')) {
+			$wp_admin_bar->add_menu(array('id' => 'pz', 'title' => 'Pz', 'href' => '#'));
+		}
+		$wp_admin_bar->add_menu(array(
+			'id' => 'pz-tlk-settings',
+			'parent' => 'pz',
+			'title' => '<span class="ab-icon dashicons dashicons-admin-generic" aria-hidden="true" style="font-size: 16px; margin-right: 4px; color: inherit;"></span>'.esc_html__('Talk/Settings', $this->text_domain),
+			'href' => admin_url('options-general.php?page=pz-talk-settings'),
+			'meta' => array('target' => '_parent'),
+		));
 	}
 
 	protected function normalize_options($options) {
@@ -244,7 +275,7 @@ class Pz_Talk {
 
 	// プラグイン一覧のクイックメニュー
 	public function action_links($links) {
-		$links = array('<a href="options-general.php?page=pz-talk-settings">'.__('Settings', $this->text_domain).'</a>' ) + $links;
+		$links[] = '<a href="options-general.php?page=pz-talk-settings">'.__('Settings', $this->text_domain).'</a>';
 		return $links;
 	}
 
