@@ -1,0 +1,250 @@
+#pz-talk-overlay {
+  z-index: 1001;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#pz-talk-modal {
+  z-index: 9991;
+  display: none;
+  position: fixed;
+  //width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  background: #fff;
+}
+
+#pz-talk-close {
+  position: relative;
+  float: right;
+  margin: -10px;
+}
+
+#pz-talk-close:hover {
+  cursor: pointer;
+}
+
+#pz-talk-content {
+  text-align: center;
+  padding: 10px;
+}
+
+.pz-talk-order-cell {
+  text-align: center;
+}
+
+#pz-talk-persons {
+  table-layout: fixed;
+}
+
+#pz-talk-persons th {
+  width: auto;
+}
+
+#pz-talk-persons .pz-talk-order-column {
+  width: 4em;
+}
+
+#pz-talk-persons .pz-talk-name-column {
+  width: 132px;
+}
+
+#pz-talk-persons .pz-talk-me-column {
+  width: 4em;
+}
+
+#pz-talk-persons .pz-talk-image-column {
+  width: 80px;
+}
+
+#pz-talk-persons .pz-talk-control-column {
+  width: 48px;
+}
+
+#pz-talk-persons th:nth-child(2),
+#pz-talk-persons th:nth-child(4) {
+  text-align: left;
+}
+
+#pz-talk-persons th:nth-child(2),
+#pz-talk-persons td:nth-child(2) {
+  box-sizing: border-box;
+  width: 132px;
+  min-width: 132px;
+  max-width: 132px;
+}
+
+#pz-talk-persons th:nth-child(1),
+#pz-talk-persons th:nth-child(3),
+#pz-talk-persons th:nth-child(5),
+#pz-talk-persons th:nth-child(6),
+#pz-talk-persons td:nth-child(1),
+#pz-talk-persons td:nth-child(3),
+#pz-talk-persons td:nth-child(5),
+#pz-talk-persons td:nth-child(6) {
+  text-align: center;
+}
+
+#pz-talk-persons .pz-talk-url-cell {
+  white-space: nowrap;
+}
+
+#pz-talk-persons .pz-talk-url-fields {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+#pz-talk-persons .pz-talk-url-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+  width: auto;
+  max-width: none;
+}
+
+#pz-talk-persons input[name="mediaselect"] {
+  align-self: stretch;
+}
+
+#pz-talk-persons .pz-talk-name-input {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 8em;
+}
+
+@media screen and (max-width: 799px) {
+  #pz-talk-persons .pz-talk-url-cell {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  #pz-talk-persons th,
+  #pz-talk-persons td {
+    display: table-cell;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  #pz-talk-persons .pz-talk-url-input {
+    font-size: 14px;
+  }
+}
+
+.pz-talk-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 5px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: grab;
+  user-select: none;
+}
+
+.pz-talk-drag-handle:hover,
+.pz-talk-drag-handle:focus {
+  border-color: #8c8f94;
+  background: #f0f0f1;
+}
+
+.pz-talk-drag-handle:active {
+  cursor: grabbing;
+}
+
+.pz-talk-grip {
+  color: #646970;
+  font-weight: bold;
+  letter-spacing: -4px;
+}
+
+#pz-talk-persons tr.pz-talk-dragging {
+  opacity: 0.45;
+}
+
+#pz-talk-persons .pz-talk-media-select-image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+#pz-talk-persons .pz-talk-media-select-image:focus {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}
+
+table.pz-talk-shortcode-table > tbody > tr > td {
+  overflow-x: auto;
+}
+
+.pz-talk-shortcode-example {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.pz-talk-shortcode-example input.regular-text {
+  flex: 0 0 8em;
+}
+
+#pz-talk-persons tr[data-person-index]:not(.pz-talk-new-person) {
+  touch-action: none;
+}
+
+.pz-talk-sorting, .pz-talk-sorting * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+table.pz-talk-floating-row.widefat {
+  position: fixed;
+  z-index: 100000;
+  margin: 0;
+  table-layout: fixed;
+  pointer-events: none;
+  background: #fff;
+  box-shadow: #00000066 8px 8px 8px;
+  transform: translate(-8px, -8px);
+  border-collapse: collapse;
+  opacity: 0.95;
+}
+
+.pz-talk-floating-row td {
+  box-sizing: border-box;
+}
+
+#pz-talk-persons tr.pz-talk-drop-target > td {
+  box-shadow: inset 0 2px #2271b1, inset 0 -2px #2271b1;
+}
+.pz-talk-sorting #pz-talk-persons tr[data-person-index] {
+  transition: transform 140ms ease;
+}
+
+#pz-talk-persons tr.pz-talk-dragging > td {
+  background: inherit;
+  box-shadow: inset 0 2px #2271b1, inset 0 -2px #2271b1;
+}
+
+#pz-talk-persons tr.pz-talk-dragging > td > * {
+  visibility: hidden;
+}
+#pz-talk-persons tr.pz-talk-dragging > td:first-child,
+#pz-talk-persons tr.pz-talk-drop-target > td:first-child {
+  box-shadow: inset 2px 0 #2271b1, inset 0 2px #2271b1, inset 0 -2px #2271b1;
+}
+
+#pz-talk-persons tr.pz-talk-dragging > td:last-child,
+#pz-talk-persons tr.pz-talk-drop-target > td:last-child {
+  box-shadow: inset -2px 0 #2271b1, inset 0 2px #2271b1, inset 0 -2px #2271b1;
+}
